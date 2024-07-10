@@ -1,14 +1,23 @@
-#! /bin/bash
-#Launch an instance with 9000 and t2.medium
-cd /opt/
-wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.6.50800.zip
-unzip sonarqube-8.9.6.50800.zip
-amazon-linux-extras install java-openjdk11 -y
-useradd sonar
-chown sonar:sonar sonarqube-8.9.6.50800 -R
-chmod 777 sonarqube-8.9.6.50800 -R
-su - sonar
+#!/bin/bash
+# Launch an instance with SonarQube on port 9000 with t2.medium instance type
 
-#run this on server manually
-#sh /opt/sonarqube-8.9.6.50800/bin/linux/sonar.sh start
-#echo "user=admin & password=admin"
+# Update package list and install necessary packages
+sudo apt-get update
+sudo apt-get install -y wget unzip openjdk-11-jdk
+
+# Download and extract SonarQube
+cd /opt/
+sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.6.50800.zip
+sudo unzip sonarqube-8.9.6.50800.zip
+
+# Create sonar user and set permissions
+sudo useradd sonar
+sudo chown sonar:sonar sonarqube-8.9.6.50800 -R
+sudo chmod 777 sonarqube-8.9.6.50800 -R
+
+# Switch to sonar user
+sudo su - sonar -c "/opt/sonarqube-8.9.6.50800/bin/linux-x86-64/sonar.sh start"
+
+echo "SonarQube installation is complete."
+echo "You can access SonarQube on port 9000."
+echo "Default username is 'admin' and password is 'admin'."
