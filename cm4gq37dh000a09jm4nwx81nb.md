@@ -146,7 +146,11 @@ To optimize VS Code for Terraform:
     
     1. Download the AWS CLI installer from [AWS CLI Downloads](https://aws.amazon.com/cli/).
         
-    2. Run the installer and follow the instructions.
+    2. Run the installer and follow the instructions
+        
+        ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733730875010/79f503d3-bbe1-4f29-bcbe-2979656c3e98.png align="center")
+        
+        .
         
     
 2. **Verify Installation**
