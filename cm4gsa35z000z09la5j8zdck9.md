@@ -1,8 +1,8 @@
 ---
-title: "Terraform Day 19: Terraform Modules with GitLab"
+title: "Terraform Day 9: Terraform Modules with GitLab"
 datePublished: Mon Dec 09 2024 08:41:38 GMT+0000 (Coordinated Universal Time)
 cuid: cm4gsa35z000z09la5j8zdck9
-slug: terraform-day-19-terraform-modules-with-gitlab
+slug: terraform-day-9-terraform-modules-with-gitlab
 
 ---
 
