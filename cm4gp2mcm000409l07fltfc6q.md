@@ -1,8 +1,8 @@
 ---
-title: "Terraform Day 01: Provider Block, Resource Block, and S3 Backend"
+title: "Terraform Day 02: Provider Block, Resource Block, and S3 Backend"
 datePublished: Mon Dec 09 2024 07:11:50 GMT+0000 (Coordinated Universal Time)
 cuid: cm4gp2mcm000409l07fltfc6q
-slug: terraform-day-01-provider-block-resource-block-and-s3-backend
+slug: terraform-day-02-provider-block-resource-block-and-s3-backend
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1733728151899/62801da5-c654-41d7-b15c-08fc7966323e.webp
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1733728283556/182ee80f-615e-4923-b526-6c224cca088b.webp
 tags: terraform-state, terraform-cloud, terraform-aws-infrastructureascode-provisioning-automation-cloudcomputing
