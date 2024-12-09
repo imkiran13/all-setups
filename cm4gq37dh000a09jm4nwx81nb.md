@@ -158,7 +158,7 @@ To optimize VS Code for Terraform:
     Run the following command to verify the AWS CLI installation:
     
 3. ```bash
-     aws --version
+      aws --version
     ```
     
 4. ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733731452696/11dc6a30-e1d7-4dbf-be0f-71e6aa12d26f.png align="center")
@@ -183,6 +183,44 @@ To optimize VS Code for Terraform:
         
 
 ---
+
+## Step 5: Configure Your Workspace
+
+1. Create a working directory for your Terraform projects, e.g., `C:\TerraformProjects`.
+    
+2. Initialize a Git repository in the directory:
+    
+    ```bash
+    git init
+    ```
+    
+3. Create your first Terraform file:
+    
+    * Open VS Code.
+        
+    * Create a new file named [`main.tf`](http://main.tf).
+        
+    * Add a basic provider configuration:
+        
+        ```plaintext
+        provider "aws" {
+          region = "us-west-2"
+        }
+        ```
+        
+
+---
+
+## Verifying the Setup
+
+1. Open a Command Prompt or VS Code Terminal.
+    
+2. Navigate to your working directory.
+    
+3. Run `terraform init` to initialize Terraform in the directory.
+    
+4. If successful, you’re ready to start building with Terraform!
+    
 
 ## Conclusion
 
