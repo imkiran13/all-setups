@@ -1,5 +1,5 @@
 ---
-title: "Terraform Day 04 - Terraform Workspaces for Multi-Environment Infrastructure"
+title: "Terraform Day 04 : Terraform Workspaces for Multi-Environment Infrastructure"
 datePublished: Mon Dec 09 2024 08:28:35 GMT+0000 (Coordinated Universal Time)
 cuid: cm4grtb2j001o08l9g01s0atl
 slug: terraform-day-04-terraform-workspaces-for-multi-environment-infrastructure
