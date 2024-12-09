@@ -158,10 +158,12 @@ To optimize VS Code for Terraform:
     Run the following command to verify the AWS CLI installation:
     
 3. ```bash
-    aws --version
+     aws --version
     ```
     
-4. Configure AWS CLI
+4. ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733731452696/11dc6a30-e1d7-4dbf-be0f-71e6aa12d26f.png align="center")
+    
+5. Configure AWS CLI
     
     * Set up your AWS credentials by running:
         
@@ -169,7 +171,7 @@ To optimize VS Code for Terraform:
         aws configure
         ```
         
-5. Provide the following details:
+6. Provide the following details:
     
     * **Access Key ID:** Your AWS access key.
         
