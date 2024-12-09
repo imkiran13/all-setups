@@ -140,46 +140,44 @@ To optimize VS Code for Terraform:
 
 ---
 
-## Step 4: Configure Your Workspace
+## Step 4: Install the AWS CLI
 
-1. Create a working directory for your Terraform projects, e.g., `C:\TerraformProjects`.
+1. #### For Windows:
     
-2. Initialize a Git repository in the directory:
+    1. Download the AWS CLI installer from [AWS CLI Downloads](https://aws.amazon.com/cli/).
+        
+    2. Run the installer and follow the instructions.
+        
     
-    ```bash
-    git init
+2. **Verify Installation**
+    
+    Run the following command to verify the AWS CLI installation:
+    
+3. ```bash
+    aws --version
     ```
     
-3. Create your first Terraform file:
+4. Configure AWS CLI
     
-    * Open VS Code.
-        
-    * Create a new file named [`main.tf`](http://main.tf).
-        
-    * Add a basic provider configuration:
+    * Set up your AWS credentials by running:
         
         ```plaintext
-        provider "aws" {
-          region = "us-west-2"
-        }
+        aws configure
         ```
         
-
----
-
-## Verifying the Setup
-
-1. Open a Command Prompt or VS Code Terminal.
+5. Provide the following details:
     
-2. Navigate to your working directory.
-    
-3. Run `terraform init` to initialize Terraform in the directory.
-    
-4. If successful, you’re ready to start building with Terraform!
-    
+    * **Access Key ID:** Your AWS access key.
+        
+    * **Secret Access Key:** Your AWS secret key.
+        
+    * **Region:** The default region for your resources (e.g., `us-west-2`).
+        
+    * **Output Format:** Default is `json`.
+        
 
 ---
 
 ## Conclusion
 
-Setting up Terraform, Git, and VS Code on Windows is straightforward and sets the foundation for managing your cloud infrastructure efficiently. With these tools in place, you’re ready to start exploring Terraform’s capabilities. Happy coding!
+Setting up Terraform, Git, and VS Code ,AWS CLI on Windows is straightforward and sets the foundation for managing your cloud infrastructure efficiently. With these tools in place, you’re ready to start exploring Terraform’s capabilities. Happy coding!
