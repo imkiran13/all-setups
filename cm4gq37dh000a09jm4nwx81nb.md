@@ -158,7 +158,7 @@ To optimize VS Code for Terraform:
     Run the following command to verify the AWS CLI installation:
     
 3. ```bash
-      aws --version
+       aws --version
     ```
     
 4. ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733731452696/11dc6a30-e1d7-4dbf-be0f-71e6aa12d26f.png align="center")
@@ -177,10 +177,12 @@ To optimize VS Code for Terraform:
         
     * **Secret Access Key:** Your AWS secret key.
         
-    * **Region:** The default region for your resources (e.g., `us-west-2`).
+    * **Region:** The default region for your resources (e.g., ap-south-1).
         
-    * **Output Format:** Default is `json`.
+    * **Output Format:** Default is `json`.  
         
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733754414684/c0b55960-aed0-4357-b122-0ad332105f6a.png align="center")
 
 ---
 
@@ -188,13 +190,7 @@ To optimize VS Code for Terraform:
 
 1. Create a working directory for your Terraform projects, e.g., `C:\TerraformProjects`.
     
-2. Initialize a Git repository in the directory:
-    
-    ```bash
-    git init
-    ```
-    
-3. Create your first Terraform file:
+2. Create your first Terraform file:
     
     * Open VS Code.
         
@@ -204,7 +200,7 @@ To optimize VS Code for Terraform:
         
         ```plaintext
         provider "aws" {
-          region = "us-west-2"
+          region = "ap-south-1"
         }
         ```
         
@@ -219,7 +215,9 @@ To optimize VS Code for Terraform:
     
 3. Run `terraform init` to initialize Terraform in the directory.
     
-4. If successful, you’re ready to start building with Terraform!
+4. If successful, you’re ready to start building with Terraform
+    
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733754679942/d2fd727d-affb-4dbe-bf81-83fd71bd0b73.png align="center")
     
 
 ## Conclusion
