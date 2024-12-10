@@ -3,6 +3,7 @@ title: "Terraform Day 01: Installation and Setup on Windows"
 datePublished: Mon Dec 09 2024 07:40:17 GMT+0000 (Coordinated Universal Time)
 cuid: cm4gq37dh000a09jm4nwx81nb
 slug: terraform-day-01-installation-and-setup-on-windows
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1733813904994/9bc221fc-e4c0-44da-b139-e94434a1fa4a.webp
 
 ---
 
