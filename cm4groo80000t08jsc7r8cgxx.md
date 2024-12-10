@@ -25,6 +25,8 @@ An **implicit dependency** occurs when one resource refers to the attribute of a
     When you declare a VPC, its ID is generated only after it is created. Any resource, like a subnet or Internet Gateway, that references this VPC ID creates an implicit dependency.
     
 
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733822291250/678305ed-8521-4612-849e-0649bfc62900.png align="left")
+
 ### 2\. Explicit Dependencies
 
 Sometimes, implicit dependencies aren’t enough. For example, if we want the **S3 bucket** to be created only after the VPC is created, we need to use explicit dependencies. This is done using the `depends_on` argument in Terraform.
