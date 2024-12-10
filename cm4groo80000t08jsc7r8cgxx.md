@@ -152,7 +152,11 @@ Terraform variable values can be stored in separate `.tfvars` files, helping to:
 
 * Keep the code clean.
     
-* Manage sensitive data or multiple environments efficiently.
+* Manage sensitive data or multiple environments efficiently
+    
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733837629696/b5464fb2-2776-46c4-8dca-5d1755d5f0cc.png align="center")
+    
+    .
     
 
 ### Removing Lock Files
@@ -173,18 +177,26 @@ When replacing resources, Terraform often follows the **create before destroy** 
 
 1. Deploy the resource.
     
-2. Run `terraform plan` and observe the changes. (Copy the output to a Notepad for reference.)
+2. Run `terraform` apply and observe the changes. (Copy the output to a Notepad for reference.)
     
-3. Deploy the resource.
+3. ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733839974848/7c0f3feb-225c-44a8-84b0-e0e19c81f5a7.png align="center")
     
-4. Add an additional name to the S3 bucket and reapply the changes to see how Terraform manages updates.
+4. Deploy the resource.
+    
+5. Add an additional name to the key\_name and reapply the changes to see how Terraform manages updates.
+    
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733840349037/2a3874e0-1def-414e-a908-b9403162623d.png align="center")
+    
+      
     
 
 ---
 
 ## Prevent Destroy
 
-Use `prevent_destroy` to safeguard critical resources. This is especially useful for resources like databases or sensitive buckets where destruction could cause significant issues.
+Use `prevent_destroy` to safeguard critical resources. This is especially useful for resources like databases or sensitive buckets where destruction could cause significant issues
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733838570265/88fca891-ef23-4cda-bf72-e5ba084bcc24.png align="center")
 
 ---
 
