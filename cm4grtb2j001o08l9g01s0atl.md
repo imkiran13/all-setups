@@ -3,6 +3,8 @@ title: "Terraform Day 04 : Terraform Workspaces for Multi-Environment Infrastruc
 datePublished: Mon Dec 09 2024 08:28:35 GMT+0000 (Coordinated Universal Time)
 cuid: cm4grtb2j001o08l9g01s0atl
 slug: terraform-day-04-terraform-workspaces-for-multi-environment-infrastructure
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1733840935768/2a4125f1-eed5-4d8f-a727-e1dc797d5f5e.jpeg
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1733840943059/f032e550-055e-4681-b3c4-8981484150a4.jpeg
 
 ---
 
