@@ -114,7 +114,7 @@ Enter terraform apply and check aws vpc console for changes
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733757144019/d5efefad-7552-41bf-bf4a-d88f971b4c50.png align="center")
 
-4\. Remote State Management
+### **4\. Remote State Management**
 
 Terraform generates a **state file** after deployment. Use remote state for managing infrastructure across projects:
 
@@ -216,6 +216,16 @@ resource "aws_security_group" "allow_all" {
 > Initialize the backend with `terraform init`.
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733819001345/7c7761c2-21c2-4bb2-9c25-52c8c7c64d87.png align="center")
+
+### **5.Remote Data Source Backend**
+
+Terraform can fetch data from remote backends, such as S3 or other Terraform configurations, using `terraform_remote_state`.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733820254032/e16f9c7b-1fce-44e9-8b8b-592a53e47a73.png align="center")
+
+we can see new state file created based on previous state file of our infra setup Base-infra.tf configuration
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733820286053/e44ea333-0023-43b8-bcfc-fc445caed20c.png align="center")
 
 ## Sample Workflow
 
