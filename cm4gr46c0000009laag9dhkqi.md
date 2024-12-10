@@ -10,7 +10,7 @@ ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1733814135502/45ae3
 
 Infrastructure as Code (IaC) has revolutionized the way we manage cloud resources. In this blog, we’ll dive into Terraform’s fundamentals and explore its core concepts, comparing it with Cloud Native Tools (CNT) like AWS CloudFormation (CFT), Azure Resource Manager (ARM), and GCP Deployment Manager. We’ll also demonstrate practical Terraform code examples, focusing on AWS.
 
-[Code used in the video](https://github.com/saikiranpi/Terraformsingleinstance.git)
+[Code used in the blog](https://github.com/imkiran13/Terraform-single-instance.git)
 
 ## Tools Overview
 
