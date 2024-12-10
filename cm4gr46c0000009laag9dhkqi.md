@@ -227,6 +227,8 @@ we can see new state file created based on previous state file of our infra setu
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733820286053/e44ea333-0023-43b8-bcfc-fc445caed20c.png align="center")
 
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733820597378/d8c2bfce-4113-493e-8ad4-562840b5cfdc.png align="center")
+
 ## Sample Workflow
 
 1. **Write Configuration:** Create resource files (e.g., [`vpc.tf`](http://vpc.tf), [`ec2.tf`](http://ec2.tf)).
