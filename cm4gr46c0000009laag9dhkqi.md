@@ -106,7 +106,7 @@ Existing VPC on aws console without internet gateway
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733756441825/6da8ae74-8b5e-4d16-8051-10f6ee2a078e.png align="center")
 
-we can attach internet gateway to existing vpc using data source  
+we can attach internet gateway to existing vpc using data source
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733757059239/d624df8d-eeaf-4403-bc36-eb56d00dced8.png align="center")
 
@@ -114,22 +114,108 @@ Enter terraform apply and check aws vpc console for changes
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733757144019/d5efefad-7552-41bf-bf4a-d88f971b4c50.png align="center")
 
-  
 4\. Remote State Management
 
 Terraform generates a **state file** after deployment. Use remote state for managing infrastructure across projects:
 
 ```plaintext
+provider "aws" {
+  region = "us-east-1"
+}
+
 terraform {
   backend "s3" {
-    bucket = "my-terraform-state-bucket"
-    key    = "project1/terraform.tfstate"
-    region = "ap-south-1"
+    bucket = "terraformbucket1212"
+    key    = "Base-infra.tfstate"
+    region = "us-east-1"
+  }
+}
+
+resource "aws_vpc" "default" {
+  cidr_block           = "10.1.0.0/16"
+  enable_dns_hostnames = true
+  tags = {
+    Name  = "terraform-aws-testing"
+    Owner = "kiran"
+  }
+}
+
+resource "aws_internet_gateway" "default" {
+  vpc_id = aws_vpc.default.id
+  tags = {
+    Name = "terraform-aws-igw"
+  }
+}
+
+resource "aws_subnet" "subnet1-public" {
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = "10.1.1.0/24"
+  availability_zone = "us-east-1a"
+  tags = {
+    Name = "Terraform_Public_Subnet1-testing"
+  }
+}
+
+resource "aws_subnet" "subnet2-public" {
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = "10.1.2.0/24"
+  availability_zone = "us-east-1b"
+  tags = {
+    Name = "Terraform_Public_Subnet2-testing"
+  }
+}
+
+resource "aws_subnet" "subnet3-public" {
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = "10.1.3.0/24"
+  availability_zone = "us-east-1c"
+  tags = {
+    Name = "Terraform_Public_Subnet3-testing"
+  }
+}
+
+resource "aws_route_table" "terraform-public" {
+  vpc_id = aws_vpc.default.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.default.id
+  }
+
+  tags = {
+    Name = "Terraform_Main_table-testing"
+  }
+}
+
+resource "aws_route_table_association" "terraform-public" {
+  subnet_id      = aws_subnet.subnet1-public.id
+  route_table_id = aws_route_table.terraform-public.id
+}
+
+resource "aws_security_group" "allow_all" {
+  name        = "allow_all"
+  description = "Allow all inbound traffic"
+  vpc_id      = aws_vpc.default.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 ```
 
 > Initialize the backend with `terraform init`.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733819001345/7c7761c2-21c2-4bb2-9c25-52c8c7c64d87.png align="center")
 
 ## Sample Workflow
 
