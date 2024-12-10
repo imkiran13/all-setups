@@ -35,7 +35,7 @@ Sometimes, implicit dependencies aren’t enough. For example, if we want the **
     A **NAT Gateway** should only be created after a **Route Table** has been established. If the NAT Gateway is created before the route table, it won’t function as expected. This is where **explicit dependencies** come into play using `depends_on`.
     
 
-### Task Example: VPC, Internet Gateway, and S3 Bucket
+### Task Example: VPC, and S3 Bucket
 
 * First, we’ll create a **VPC** and an **S3 bucket**. Since there's no direct dependency between the VPC and the S3 bucket, Terraform may create the S3 bucket first.
     
@@ -68,8 +68,6 @@ resource "aws_vpc" "main" {
 ```plaintext
 resource "aws_s3_bucket" "bucket1" {
   bucket = "terraform-bucket1-example"
-  acl    = "private"
-
   tags = {
     Name = "Terraform-Bucket1"
   }
@@ -77,8 +75,40 @@ resource "aws_s3_bucket" "bucket1" {
 
 resource "aws_s3_bucket" "bucket2" {
   bucket = "terraform-bucket2-example"
-  acl    = "private"
+  tas = {
+    Name = "Terraform-Bucket2"
+  }
+}
 
+resource "aws_s3_bucket" "bucket3" {
+  bucket = "terraform-bucket3-example"
+  tags = {
+    Name = "Terraform-Bucket3"
+  }
+}
+```
+
+In this setup, Terraform will deploy the VPC and S3 buckets in parallel because no dependency exists between these resources.  
+Run `terraform init` `terraform plan` `terraform apply` to provision resources
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733824703378/6d12eb26-835e-45d5-aafa-f57d91a94bd5.png align="center")
+
+To ensure that the S3 bucket is created **after** the VPC, we’ll add explicit dependencies using the `depends_on` argument.
+
+#### Updated [`s3.tf`](http://s3.tf) With Dependencies
+
+```plaintext
+resource "aws_s3_bucket" "bucket1" {
+  bucket = "terraform-bucket1-example"
+  depends_on = [aws_vpc.main]
+  tags = {
+    Name = "Terraform-Bucket1"
+  }
+}
+
+resource "aws_s3_bucket" "bucket2" {
+  bucket = "terraform-bucket2-example"
+  depends_on = [aws_vpc.main]
   tags = {
     Name = "Terraform-Bucket2"
   }
@@ -86,28 +116,27 @@ resource "aws_s3_bucket" "bucket2" {
 
 resource "aws_s3_bucket" "bucket3" {
   bucket = "terraform-bucket3-example"
-  acl    = "private"
-
+  depends_on = [aws_vpc.main]
   tags = {
     Name = "Terraform-Bucket3"
   }
 }
 ```
 
-In this setup, Terraform will deploy the VPC and S3 buckets in parallel because no dependency exists between these resources.
+---
 
-### Create S3 Buckets
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733825173649/dd0521ff-a0c4-470d-b0c1-8f54f847284d.png align="center")
 
-1. Create an [`s3.tf`](http://s3.tf) file.
-    
-2. In it, define three S3 buckets.
-    
-3. Observe that the S3 buckets and VPC will deploy in parallel because there is no dependency between them.
-    
+### Explanation of `depends_on`
 
-To ensure that the S3 bucket is created **after** the VPC, we’ll add explicit dependencies using the `depends_on` argument.  
-  
-  
+1. `depends_on` ensures the explicit dependency order between resources.
+    
+2. In this case, the S3 buckets depend on the VPC (`aws_vpc.main`), so Terraform will:
+    
+    * Create the VPC first.
+        
+    * Then deploy the S3 buckets sequentially.  
+        
 
 ---
 
