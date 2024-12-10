@@ -52,7 +52,7 @@ The primary file where we define the cloud provider:
 
 ```plaintext
 provider "aws" {
-  region = "us-west-2"
+  region = "ap-south-1"
 }
 
 # Other resource definitions will follow...
@@ -80,16 +80,19 @@ resource "aws_internet_gateway" "igw" {
 }
 ```
 
+Run `terraform init` `terraform plan` `terraform apply` to provision resources
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733755575115/58bad258-3af0-4a54-bad6-79eb88f9996c.png align="center")
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733755629973/e8d78268-b7e6-4d7c-9cc2-1237be061508.png align="center")
+
 ### 3\. Using Data Sources
 
-Data sources fetch information about existing resources in your cloud environment. For example, fetching a VPC by its tag name:
+Data sources fetch information about existing resources in your cloud environment. For example, fetching a VPC by its id:
 
 ```plaintext
 data "aws_vpc" "Test-Vpc" {
-  filter {
-    name   = "tag:Name"
-    values = ["Test-Vpc"]
-  }
+  id = var.vpc_id
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -97,7 +100,20 @@ resource "aws_internet_gateway" "igw" {
 }
 ```
 
-### 4\. Remote State Management
+Existing VPC on aws console without internet gateway
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733756441825/6da8ae74-8b5e-4d16-8051-10f6ee2a078e.png align="center")
+
+we can attach internet gateway to existing vpc using data source  
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733757059239/d624df8d-eeaf-4403-bc36-eb56d00dced8.png align="center")
+
+Enter terraform apply and check aws vpc console for changes
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733757144019/d5efefad-7552-41bf-bf4a-d88f971b4c50.png align="center")
+
+  
+4\. Remote State Management
 
 Terraform generates a **state file** after deployment. Use remote state for managing infrastructure across projects:
 
@@ -106,7 +122,7 @@ terraform {
   backend "s3" {
     bucket = "my-terraform-state-bucket"
     key    = "project1/terraform.tfstate"
-    region = "us-west-2"
+    region = "ap-south-1"
   }
 }
 ```
