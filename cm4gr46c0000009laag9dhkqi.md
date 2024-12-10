@@ -1,5 +1,5 @@
 ---
-title: "Terraform Day 02: Provider Block, Resource Block, and S3 Backend"
+title: "Terraform Day 02: Provider Block ,Resource Block , S3 backend , Data Source , Remote Data Source Backend"
 datePublished: Mon Dec 09 2024 08:09:02 GMT+0000 (Coordinated Universal Time)
 cuid: cm4gr46c0000009laag9dhkqi
 slug: terraform-day-02-provider-block-resource-block-and-s3-backend-1
