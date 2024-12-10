@@ -42,6 +42,60 @@ Sometimes, implicit dependencies aren’t enough. For example, if we want the **
 * To enforce order, we’ll explore how to use `depends_on` to make sure that resources like the **NAT Gateway** and **S3 bucket** are created in the correct sequence.
     
 
+First, we create a [`main.tf`](http://main.tf) file for the VPC and an [`s3.tf`](http://s3.tf) file for the S3 buckets.
+
+#### [`main.tf`](http://main.tf) (VPC)
+
+```plaintext
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
+  tags = {
+    Name    = "Vpc-Terra"
+    Service = "Terraform"
+  }
+}
+```
+
+#### [`s3.tf`](http://s3.tf) (S3 Buckets)
+
+```plaintext
+resource "aws_s3_bucket" "bucket1" {
+  bucket = "terraform-bucket1-example"
+  acl    = "private"
+
+  tags = {
+    Name = "Terraform-Bucket1"
+  }
+}
+
+resource "aws_s3_bucket" "bucket2" {
+  bucket = "terraform-bucket2-example"
+  acl    = "private"
+
+  tags = {
+    Name = "Terraform-Bucket2"
+  }
+}
+
+resource "aws_s3_bucket" "bucket3" {
+  bucket = "terraform-bucket3-example"
+  acl    = "private"
+
+  tags = {
+    Name = "Terraform-Bucket3"
+  }
+}
+```
+
+In this setup, Terraform will deploy the VPC and S3 buckets in parallel because no dependency exists between these resources.
+
 ### Create S3 Buckets
 
 1. Create an [`s3.tf`](http://s3.tf) file.
@@ -51,7 +105,9 @@ Sometimes, implicit dependencies aren’t enough. For example, if we want the **
 3. Observe that the S3 buckets and VPC will deploy in parallel because there is no dependency between them.
     
 
-To ensure that the S3 bucket is created **after** the VPC, we’ll add explicit dependencies using the `depends_on` argument.
+To ensure that the S3 bucket is created **after** the VPC, we’ll add explicit dependencies using the `depends_on` argument.  
+  
+  
 
 ---
 
