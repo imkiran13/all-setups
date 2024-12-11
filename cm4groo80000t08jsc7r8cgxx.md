@@ -4,6 +4,7 @@ datePublished: Mon Dec 09 2024 08:24:59 GMT+0000 (Coordinated Universal Time)
 cuid: cm4groo80000t08jsc7r8cgxx
 slug: terraform-day-03-dependencies-variables-tfvars-and-create-before-destroy
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1733912886932/486bc6bc-6556-4187-bb83-9e30d41b99d5.webp
+tags: terraform-cloud, terraform-aws-infrastructureascode-provisioning-automation-cloudcomputing
 
 ---
 
