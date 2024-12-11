@@ -43,7 +43,7 @@ Clone the base Terraform infrastructure and make the necessary changes to create
 
 ### 2\. Setup State Backend
 
-Create an S3 bucket to store Terraform state files and enable versioning, configure it as a backend in your [`main.tf`](http://main.tf). Ensure that the bucket is set up before proceeding.
+Create an S3 bucket to store Terraform state files and enable versioning if someone deletes state file we can take backup of it, configure it as a backend in your [`main.tf`](http://main.tf). Ensure that the bucket is set up before proceeding.
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733907238859/91a8b42b-571a-44a1-addc-3d1a06f1f9bf.png align="center")
 
@@ -169,7 +169,7 @@ To avoid state file conflicts, implement state locking using DynamoDB.
     
     ```plaintext
     resource "aws_dynamodb_table" "terraform_locks" {
-      name         = "terraform-state-lock"
+      name         = "dynamodb-state-lock"
       billing_mode = "PAY_PER_REQUEST"
       hash_key     = "LockID"
     
@@ -180,60 +180,36 @@ To avoid state file conflicts, implement state locking using DynamoDB.
     }
     ```
     
-2. Apply the DynamoDB configuration:
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733916033824/bd2aec4a-3a60-49df-89a7-917c679bede8.png align="center")
     
-    ```plaintext
-    terraform apply
-    ```
-    
-3. Add the DynamoDB state locking configuration to your backend in [`main.tf`](http://main.tf):
+    2.Add the DynamoDB state locking configuration to your backend in [`main.tf`](http://main.tf):
     
     ```plaintext
     backend "s3" {
       bucket         = "your-s3-bucket"
       key            = "path/to/terraform.tfstate"
       region         = "us-west-2"
-      dynamodb_table = "terraform-state-lock"
+      dynamodb_table = "dynamodb-state-lock"
     }
     ```
     
 
-### 14\. Excluding DynamoDB from Terraform State
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733916132637/692d9748-1a55-43bb-90cf-509bc18f3a3d.png align="center")
+
+3.Apply the DynamoDB configuration:
+
+1. ```plaintext
+    terraform apply --auto-approve
+    ```
+    
+
+### 13\. Excluding DynamoDB from Terraform State
 
 If you wish to manage DynamoDB outside of Terraform to prevent it from being destroyed, remove it from the state file:
 
 ```plaintext
 terraform state rm aws_dynamodb_table.terraform_locks
 ```
-
-### 15\. Push Code to GitHub
-
-Once all the files are ready, push them to your GitHub repository:
-
-```plaintext
-git init
-git add .
-git commit -m "Initial commit for Terraform multi-environment setup"
-git remote add origin https://github.com/your-username/terraform-multi-env.git
-git push -u origin main
-```
-
-### 16\. Deploying the Infrastructure from GitHub
-
-1. Clone the repository onto your local machine or remote instance:
-    
-    ```plaintext
-    git clone https://github.com/your-username/terraform-multi-env.git
-    ```
-    
-2. Run the Terraform commands to deploy the infrastructure:
-    
-    ```plaintext
-    terraform init
-    terraform plan -var-file=dev.tfvars
-    terraform apply -var-file=dev.tfvars
-    ```
-    
 
 ---
 
