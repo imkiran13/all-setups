@@ -25,27 +25,84 @@ Terraform provides the `TF_LOG` environment variable for controlling log verbosi
 
 ### Steps to Enable TF\_LOG
 
-1. **Set TF\_LOG for detailed trace logs:**
+**1\. Set TF\_LOG for Detailed Trace Logs**  
+To enable detailed trace logging:
+
+**PowerShell:**
+
+```plaintext
+$env:TF_LOG = "TRACE"
+terraform destroy
+```
+
+**Bash:**
+
+```plaintext
+export TF_LOG="TRACE"
+terraform destroy
+```
+
+This level logs every action, providing a complete picture of the Terraform execution process.
+
+---
+
+**2\. Set TF\_LOG for Error-Level Logging**  
+For logging only errors:
+
+**PowerShell:**
+
+```plaintext
+$env:TF_LOG = "ERROR"
+terraform destroy
+```
+
+**Bash:**
+
+```plaintext
+export TF_LOG="ERROR"
+terraform destroy
+```
+
+This is useful when you only want to capture critical issues without unnecessary verbosity.
+
+---
+
+**3\. Write Logs to a File**  
+To save the logs for future reference or debugging, you can direct them to a file:
+
+**PowerShell:**
+
+```plaintext
+$env:TF_LOG = "TRACE"
+$env:TF_LOG_PATH = "./logs/terraform.log"
+terraform destroy
+```
+
+**Bash:**
+
+```plaintext
+export TF_LOG="TRACE"
+export TF_LOG_PATH="./logs/terraform.log"
+terraform destroy
+```
+
+The logs will be written to `terraform.log` in the specified directory (`./logs`), ensuring you don't lose critical debugging information.
+
+---
+
+#### **Log Levels in TF\_LOG**
+
+Terraform supports various log levels for different use cases:
+
+* **TRACE**: Detailed logs for debugging.
     
-    ```plaintext
-    $env:TF_LOG = "TRACE"
-    terraform destroy
-    ```
+* **DEBUG**: Logs for in-depth insights into operations.
     
-2. **Set TF\_LOG for error-level logging:**
+* **INFO**: General logs to understand the flow.
     
-    ```plaintext
-    $env:TF_LOG = "ERROR"
-    terraform destroy
-    ```
+* **WARN**: Logs for warnings during operations.
     
-3. **Write logs to a file:**
-    
-    ```plaintext
-    $env:TF_LOG = "TRACE"
-    $env:TF_LOG_PATH = "./logs/terraform.log"
-    terraform destroy
-    ```
+* **ERROR**: Logs for critical errors only.
     
 
 ## Handling Sensitive Information
