@@ -5,6 +5,7 @@ cuid: cm4gr46c0000009laag9dhkqi
 slug: terraform-day-02-provider-block-resource-block-and-s3-backend-1
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1733814111214/567ac69b-e429-47ea-af13-bf3f246610ee.webp
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1733814135502/45ae3503-d244-4ff8-9fdb-6a051197028a.webp
+tags: terraform-state, terraform-cloud, terraform-providers, terraform-aws-infrastructureascode-provisioning-automation-cloudcomputing, terraformbackend
 
 ---
 
