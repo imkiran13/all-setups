@@ -32,15 +32,17 @@ To enable detailed trace logging:
 
 ```plaintext
 $env:TF_LOG = "TRACE"
-terraform destroy
+terraform apply --auto-approve
 ```
 
 **Bash:**
 
 ```plaintext
 export TF_LOG="TRACE"
-terraform destroy
+terraform apply --auto-approve
 ```
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733929636722/b4070129-895b-433c-a48b-25e4561cb195.png align="center")
 
 This level logs every action, providing a complete picture of the Terraform execution process.
 
@@ -53,14 +55,14 @@ For logging only errors:
 
 ```plaintext
 $env:TF_LOG = "ERROR"
-terraform destroy
+terraform apply --auto-approve
 ```
 
 **Bash:**
 
 ```plaintext
 export TF_LOG="ERROR"
-terraform destroy
+terraform apply --auto-approve
 ```
 
 This is useful when you only want to capture critical issues without unnecessary verbosity.
@@ -75,7 +77,7 @@ To save the logs for future reference or debugging, you can direct them to a fil
 ```plaintext
 $env:TF_LOG = "TRACE"
 $env:TF_LOG_PATH = "./logs/terraform.log"
-terraform destroy
+terraform apply --auto-approve
 ```
 
 **Bash:**
@@ -83,10 +85,16 @@ terraform destroy
 ```plaintext
 export TF_LOG="TRACE"
 export TF_LOG_PATH="./logs/terraform.log"
-terraform destroy
+terraform apply --auto-approve
 ```
 
-The logs will be written to `terraform.log` in the specified directory (`./logs`), ensuring you don't lose critical debugging information.
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733930160432/777f3055-ec19-45f0-8e91-f46b042ecda1.png align="center")
+
+The logs will be written to `terraform.log` in the specified directory (`./logs`), ensuring you don't lose critical debugging information
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733930441969/78a9dc0e-e1fe-441e-b839-c73e9c1eaf53.png align="center")
+
+.
 
 ---
 
@@ -129,99 +137,118 @@ variable "password" {
 
 To securely store and retrieve sensitive information like passwords, you can use AWS Secrets Manager.
 
-1. **Generate a random password:**
+2. **Generate a random password:**
     
     ```plaintext
-    resource "random_password" "master" {
+    resource "random_password" "db_password" {
       length           = 16
       special          = true
       override_special = "_!%^"
     }
     ```
     
-2. **Store the password in AWS Secrets Manager:**
+3. **Store the password in AWS Secrets Manager:**
     
     ```plaintext
-    resource "aws_secretsmanager_secret" "password" {
+    resource "aws_secretsmanager_secret" "db_secret" {
       name = "test-db-password"
     }
     
-    resource "aws_secretsmanager_secret_version" "password" {
-      secret_id     = aws_secretsmanager_secret.password.id
-      secret_string = random_password.master.result
+    resource "aws_secretsmanager_secret_version" "db_secret_version" {
+      secret_id     = aws_secretsmanager_secret.db_secret.id
+      secret_string = random_password.db_password.result
     }
     ```
     
-3. **Retrieve the password when deploying RDS:**
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733933786380/ba5e9385-3a5e-4627-b8e6-165ddb1062a1.png align="left")
     
-    ```plaintext
-    data "aws_secretsmanager_secret_version" "password" {
-      secret_id = aws_secretsmanager_secret.password.id
-    }
-    
-    resource "aws_db_instance" "default" {
-      identifier           = "testdb"
-      allocated_storage    = 10
-      storage_type         = "gp2"
-      engine               = "mysql"
-      engine_version       = "5.7"
-      instance_class       = "db.t2.medium"
-      username             = "dbadmin"
-      password             = data.aws_secretsmanager_secret_version.password.secret_string
-      publicly_accessible  = true
-      db_subnet_group_name = aws_db_subnet_group.default.id
-    }
-    ```
-    
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733933547667/74969895-f1bf-4598-9beb-72f3adbd1276.png align="center")
 
 ## Deploying RDS MySQL Instance
 
 ### Steps:
 
-1. **Create a subnet group:**
+1. **Retrieve the password when deploying RDS:**
     
     ```plaintext
-    resource "aws_db_subnet_group" "default" {
-      name       = "main"
+    data "aws_secretsmanager_secret" "db_secret" {
+      name = "test-db-password"
+    }
+    
+    data "aws_secretsmanager_secret_version" "db_secret_version" {
+      secret_id = aws_secretsmanager_secret.db_secret.id
+    }
+    ```
+    
+2. **Create a subnet group:**
+    
+    ```plaintext
+    resource "aws_db_subnet_group" "test_subnet_group" {
+      name = "test-db-subnet-group"
       subnet_ids = [
         aws_subnet.subnet1-public.id,
         aws_subnet.subnet2-public.id,
+        aws_subnet.subnet3-public.id,
       ]
       tags = {
-        Name = "My DB subnet group"
+        Name = "Test DB subnet group"
       }
     }
     ```
     
-2. **Deploy the RDS instance:**
+3. **Deploy the RDS instance:**
     
     ```plaintext
-    resource "aws_db_instance" "default" {
-      identifier         = "testdb"
-      allocated_storage  = 10
-      engine             = "mysql"
-      engine_version     = "5.7"
-      instance_class     = "db.t2.medium"
-      name               = "mydb"
-      username           = "dbadmin"
-      password           = data.aws_secretsmanager_secret_version.password.secret_string
-      publicly_accessible = true
-      db_subnet_group_name = aws_db_subnet_group.default.id
+    resource "aws_db_instance" "test_db_instance" {
+      identifier           = "testdb"
+      allocated_storage    = 20
+      storage_type         = "gp2"
+      engine               = "mysql"
+      engine_version       = "8.0.39"
+      instance_class       = "db.t3.micro"
+      username             = "adminuser"
+      password             = data.aws_secretsmanager_secret_version.db_secret_version.secret_string
+      publicly_accessible  = true
+      db_subnet_group_name = aws_db_subnet_group.test_subnet_group.id
     }
     ```
     
 
-### Connecting to RDS via MySQL Workbench:
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733933634404/46a61ed9-506d-447d-be2e-779f8f7a0c02.png align="center")
 
-1. In AWS Console, go to **RDS &gt; Databases &gt; testdb** and copy the **endpoint**.
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733933731541/b0b1f0eb-4483-43a3-8e3c-1d39069a8ba0.png align="center")
+
+###   
+Connecting to RDS via MySQL Workbench:
+
+1. In AWS Console, go to **RDS &gt; Databases &gt; testdb** and copy the **endpoint**
+    
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733933862218/e5951795-603f-4570-9418-effe882033c1.png align="center")
+    
+    .
     
 2. In **MySQL Workbench**, use:
     
     * Hostname: `<copied endpoint>`
         
-    * Username: `dbadmin`
+    * Username: adminuser  
+        make sure port 3306 is open in security Group
+        
+        ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733934050846/e30e073c-87e5-4a3b-9f16-29624d30ed32.png align="center")
+        
+        ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733934374929/72f70aff-acbd-42dc-91ea-0f7636dc30e2.png align="center")
         
     * Password: Fetch from **AWS Secrets Manager**.
+        
+        ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733931249851/e5b2ae0d-11bb-4cd7-a64e-85769edfee58.png align="left")
+        
+        ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733937594520/d63b8085-5bf5-4124-9952-39156820ed05.png align="left")
+        
+        ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733937689738/4fcef605-245e-4b0f-8796-937fbcd11270.png align="center")
+        
+          
+        Connected successfully
         
 
 ### Destroy the Infrastructure
@@ -229,7 +256,7 @@ To securely store and retrieve sensitive information like passwords, you can use
 After testing, remember to clean up:
 
 ```plaintext
-terraform destroy
+terraform destroy --auto-approve
 ```
 
 ## Interview Tip: Handling Sensitive Information
