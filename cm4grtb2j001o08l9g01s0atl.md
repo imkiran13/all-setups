@@ -23,11 +23,11 @@ ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1733840943059/f032e
 
 You will be deploying three environments:
 
-* **Dev**: 3 Servers
+* **Dev**: 1 Server
     
-* **UAT**: 3 Servers
+* **UAT**: 1 Server
     
-* **Prod**: 3 Servers
+* **Prod**: 1 Server
     
 
 Each environment will have its own Terraform `.tfvars` file to manage configuration differences like naming conventions.
@@ -36,17 +36,26 @@ Each environment will have its own Terraform `.tfvars` file to manage configurat
 
 ### 1\. Clone the Base Infrastructure
 
-Clone the base Terraform infrastructure and make the necessary changes to create multiple environments.
+Clone the base Terraform infrastructure and make the necessary changes to create multiple environments.  
+[https://github.com/imkiran13/Mastering-Terraform.git](https://github.com/imkiran13/Mastering-Terraform.git)
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733907197620/51b56379-5418-4dae-a9a3-50008b6a095a.png align="center")
 
 ### 2\. Setup State Backend
 
-Create an S3 bucket to store Terraform state files and configure it as a backend in your [`main.tf`](http://main.tf). Ensure that the bucket is set up before proceeding.
+Create an S3 bucket to store Terraform state files and enable versioning, configure it as a backend in your [`main.tf`](http://main.tf). Ensure that the bucket is set up before proceeding.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733907238859/91a8b42b-571a-44a1-addc-3d1a06f1f9bf.png align="center")
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733907323320/2f6f5bfd-0680-423d-8711-59d3748e668b.png align="center")
 
 ### 3\. Create Environment-Specific `.tfvars` Files
 
 * Rename the existing `terraform.tfvars` to `dev.tfvars`.
     
 * Create `uat.tfvars` and `prod.tfvars` with environment-specific changes (like naming conventions for servers).
+    
+* ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733907419697/7ffadf7d-f987-4080-9485-10810673534e.png align="left")
     
 
 ### 4\. Initialize and Validate Terraform
@@ -57,31 +66,7 @@ terraform validate
 terraform fmt
 ```
 
-### 5\. Apply Terraform Configuration
-
-Deploy the infrastructure for each environment using the appropriate `.tfvars` file.
-
-#### For Dev Environment:
-
-```plaintext
-terraform apply -var-file=dev.tfvars
-```
-
-#### For UAT Environment:
-
-```plaintext
-terraform workspace new uat
-terraform apply -var-file=uat.tfvars
-```
-
-#### For Prod Environment:
-
-```plaintext
-terraform workspace new prod
-terraform apply -var-file=prod.tfvars
-```
-
-### 6\. Managing State Files for Different Environments
+### 5\. Managing State Files for Different Environments
 
 Each environment requires a separate state file. If you use the same state backend without separating the state files, Terraform will attempt to apply changes across environments.
 
@@ -93,9 +78,15 @@ terraform workspace new uat
 terraform workspace new prod
 ```
 
-Each workspace will create a separate folder in the S3 bucket to store the respective environment’s state file.
+Each workspace will create a separate folder in the S3 bucket to store the respective environment’s state file
 
-### 7\. Adding EC2 Instances
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733908137256/dc9ae993-cee4-4c65-8fba-9ccbd772096b.png align="center")
+
+Check S3 bucket you will see all workspaces environments
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733909673128/b9c36f19-44d0-4e3a-b4f9-9dbac1d70775.png align="center")
+
+### 6\. Adding EC2 Instances
 
 Modify the [`ec2.tf`](http://ec2.tf) file to add the EC2 instance configurations:
 
@@ -108,7 +99,7 @@ Modify the [`ec2.tf`](http://ec2.tf) file to add the EC2 instance configurations
     ```
     
 
-### 8\. User Data Configuration
+### 7\. User Data Configuration
 
 Add user data to the EC2 instances to update the web server’s index page:
 
@@ -117,23 +108,35 @@ Add user data to the EC2 instances to update the web server’s index page:
 echo "Hello from ${var.env}" > /var/www/html/index.nginx-debian.html
 ```
 
-### 9\. Switch Between Workspaces
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733911833661/dfeb1663-e1a9-4ba4-8ea3-899e8b7f6e8b.png align="center")
+
+### 8\. Switch Between Workspaces
 
 To switch between environments, use the `terraform workspace` commands:
 
 ```plaintext
 terraform workspace select dev
 terraform plan -var-file=dev.tfvars
-terraform apply -var-file=dev.tfvars
+terraform apply --auto-approve -var-file=dev.tfvars
 ```
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733909404378/71ffbc30-8470-4151-8d57-b271a0042b23.png align="center")
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733909276622/63a295f5-d3aa-4db3-859d-25615ca0235a.png align="center")
 
 Repeat the process for UAT and Prod environments by selecting their respective workspaces.
 
-### 10\. Check Public IPs of All Servers
+### 9\. Check Public IPs of All Servers
 
 After deployment, verify the public IP addresses of the servers in each environment.
 
-### 11\. Clean Up (Destroy Infrastructure)
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733911874612/efca837e-5688-40ee-864e-4985c30f62fb.png align="left")
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733911940324/fc593563-16e6-4f1a-964b-bd53e2444987.png align="left")
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1733911984569/609f9728-b2d1-42d8-b168-70da7b214235.png align="left")
+
+### 10\. Clean Up (Destroy Infrastructure)
 
 To destroy resources from each environment:
 
@@ -148,7 +151,7 @@ terraform workspace select uat
 terraform destroy -var-file=uat.tfvars
 ```
 
-### 12\. Delete Workspaces
+### 11\. Delete Workspaces
 
 Once the environments are destroyed, delete the workspaces:
 
@@ -158,7 +161,7 @@ terraform workspace delete uat
 terraform workspace delete prod
 ```
 
-### 13\. DynamoDB for State Locking
+### 12\. DynamoDB for State Locking
 
 To avoid state file conflicts, implement state locking using DynamoDB.
 
