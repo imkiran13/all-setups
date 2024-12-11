@@ -1,5 +1,5 @@
 ---
-title: "Terraform Day 03 - Dependencies, Variables, TFVars and Create Before Destroy"
+title: "Terraform Day 03 : Dependencies, Variables, TFVars and Create Before Destroy"
 datePublished: Mon Dec 09 2024 08:24:59 GMT+0000 (Coordinated Universal Time)
 cuid: cm4groo80000t08jsc7r8cgxx
 slug: terraform-day-03-dependencies-variables-tfvars-and-create-before-destroy
