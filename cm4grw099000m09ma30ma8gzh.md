@@ -3,6 +3,8 @@ title: "Terraform Day 5: Enabling TF_LOG and Working with Sensitive Information"
 datePublished: Mon Dec 09 2024 08:30:41 GMT+0000 (Coordinated Universal Time)
 cuid: cm4grw099000m09ma30ma8gzh
 slug: terraform-day-5-enabling-tflog-and-working-with-sensitive-information
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1734178748299/24c748f6-218a-4cb9-8de2-6a6010b3bd7b.webp
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1734178761793/d43e4e49-1398-43af-aa9a-748101344283.webp
 
 ---
 
