@@ -3,6 +3,7 @@ title: "Terraform Day 6: Terraform Functions Part: 1"
 datePublished: Mon Dec 09 2024 08:32:44 GMT+0000 (Coordinated Universal Time)
 cuid: cm4gryngl000i09js7vsdd1u3
 slug: terraform-day-6-terraform-functions-part-1
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1734178818601/144f2fb0-275e-44a7-9459-4f3d1e3ec7f1.webp
 
 ---
 
