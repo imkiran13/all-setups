@@ -3,10 +3,10 @@ title: "Lemp Stack On Aws"
 datePublished: Sat Dec 14 2024 12:34:36 GMT+0000 (Coordinated Universal Time)
 cuid: cm4o5sy6w000109jl2bix6l1z
 slug: lemp-stack-on-aws
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1734516548930/d566a9c8-f062-49f7-b3e2-245621095353.webp
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1734516555756/323abc48-3c3f-419c-9d35-965bd7864269.webp
 
 ---
-
-[![Lemp](https://github.com/laraadeboye/Steghub-Devops-Cloud-Engineer/raw/main/LEMP-STACK/images/InstaLL%20LEMP%20STACK%20ON%20AWS.png align="left")](https://github.com/laraadeboye/Steghub-Devops-Cloud-Engineer/blob/main/LEMP-STACK/images/InstaLL%20LEMP%20STACK%20ON%20AWS.png)
 
 ## Table of Content
 
@@ -453,7 +453,6 @@ Then write the following content:
 
 ```plaintext
 sudo bash c 'echo 'HELLO LEMP from hostname' $(TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` && curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` && curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/project_lemp/index.html'
-
 ```
 
 Set the correct permissions for the file:
@@ -535,7 +534,7 @@ Alternatively, you can verify the availability of the necessary driver by checki
 Check php version
 
 ```plaintext
-php -v  
+php -v
 ```
 
 Check php modules
@@ -639,7 +638,7 @@ INSERT INTO todo_list (task, status) VALUES
 ('Walk the dog', 'pending'),
 ('Finish the report', 'pending'),
 ('Read a book', 'pending'),
-('Prepare dinner', 'pending'); 
+('Prepare dinner', 'pending');
 ```
 
 4. Confirm the data you entered by running:
