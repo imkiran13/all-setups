@@ -3,6 +3,8 @@ title: "Terraform Day 9: Terraform Modules with GitLab"
 datePublished: Mon Dec 09 2024 08:41:38 GMT+0000 (Coordinated Universal Time)
 cuid: cm4gsa35z000z09la5j8zdck9
 slug: terraform-day-9-terraform-modules-with-gitlab
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1734516474755/ad8bd264-e7cd-4624-b5b0-2a7ae0af9a90.webp
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1734516485178/d9981f40-b46e-496e-a6c6-fe193af4bffb.webp
 
 ---
 
