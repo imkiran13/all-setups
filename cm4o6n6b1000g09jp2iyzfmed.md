@@ -3,6 +3,7 @@ title: "Load balancing with Nginx"
 datePublished: Sat Dec 14 2024 12:58:06 GMT+0000 (Coordinated Universal Time)
 cuid: cm4o6n6b1000g09jp2iyzfmed
 slug: load-balancing-with-nginx
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1734536839602/a2a9f6af-7072-46b2-ae44-5ecb658258cb.webp
 
 ---
 
