@@ -3,6 +3,8 @@ title: "Terraform Day 8: Project: Modularized Infrastructure Setup"
 datePublished: Mon Dec 09 2024 08:35:54 GMT+0000 (Coordinated Universal Time)
 cuid: cm4gs2q83001n09mh9xzqb5k8
 slug: terraform-day-8-project-modularized-infrastructure-setup
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1734516395484/8ea2b9af-df4e-4508-9bd2-2635e6500724.webp
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1734516404140/949dc8fa-0bc7-4c6c-9d07-b5ad0708417c.webp
 
 ---
 
