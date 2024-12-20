@@ -46,6 +46,8 @@ In this project, we will utilize Terraform functions and techniques to create a 
 
 Start by cloning the repository to your local environment.
 
+[https://github.com/imkiran13/Terraform-single-instance.git](https://github.com/imkiran13/Terraform-single-instance.git)
+
 ### 2\. Clean Up Terraform Files
 
 #### [variables.tf](http://variables.tf)
